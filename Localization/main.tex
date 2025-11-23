@@ -71,6 +71,13 @@ This paper presents a lightweight, deterministic localization algorithm for mobi
 Localization, Range Sensors, Odometry, Sensor Fusion, Embedded Systems, Deterministic Algorithm, Mobile Robotics.
 \end{IEEEkeywords}
 
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{SystemOverview.png}
+    \caption{System overview showing the robot within the known rectangular arena of width $W$ and length $L$. The world frame $W$ is fixed to the arena, while the robot frame $R$ moves with the robot. The pose $(x, y, \theta)$ defines the transformation from $R$ to $W$.}
+    \label{fig:system_overview}
+\end{figure}
+
 \section{Introduction}
 Reliable self-localization is a cornerstone of mobile robot autonomy. In many structured environments—such as arenas for robotic competitions, standardized warehouse aisles, or designated clean rooms—the robot's workspace is geometrically simple and known \textit{ad priori}. In these contexts, the primary challenge is not mapping, but rather maintaining an accurate pose estimate in the face of actuator and sensor noise, particularly odometric drift.
 
@@ -86,16 +93,6 @@ The main contributions of this work are threefold:
 \end{itemize}
 
 The paper is structured as follows: Section II reviews related work. Section III defines the system model and problem. Section IV details the proposed methodology. Section V analyzes its complexity. Section VI outlines an evaluation plan, and Section VII concludes with a discussion of limitations and future work.
-
-% --- FIGURE PLACEHOLDER ---
-\begin{figure}[t]
-    \centering
-    % \includegraphics[width=0.9\columnwidth]{figure_path/system_overview.pdf}
-    \fbox{\parbox[c][1.8in][c]{0.8\columnwidth}{\centering \large System Overview Figure\\ \small (e.g., Robot in arena with sensors, walls, and coordinate frames)}}
-    \caption{System overview showing the robot within the known rectangular arena of width $W$ and length $L$. The world frame $W$ is fixed to the arena, while the robot frame $R$ moves with the robot. The pose $(x, y, \theta)$ defines the transformation from $R$ to $W$.}
-    \label{fig:system_overview}
-\end{figure}
-% --------------------------
 
 \section{Related Work}
 Localization for mobile robots is a mature and well-established field, largely dominated by probabilistic methods due to their effectiveness in handling sensor noise and environmental uncertainty.
@@ -146,8 +143,7 @@ A similar equation holds for deriving the $y$-position from a horizontal wall. T
 % --- FIGURE PLACEHOLDER ---
 \begin{figure}[t]
     \centering
-    % \includegraphics[width=0.9\columnwidth]{figure_path/geometry.pdf}
-    \fbox{\parbox[c][1.8in][c]{0.8\columnwidth}{\centering \large Geometric Model Figure\\ \small (Illustration of ray-casting, wall intersection, and variable definitions)}}
+    \includegraphics[width=0.9\columnwidth]{2SensorInverseKin.png}
     \caption{Geometric model for a single sensor. The sensor's ray, cast at angle $\theta_s$, intersects a vertical wall. The robot's true x-coordinate can be derived from the wall's known position $X_{\text{wall}}$ and the measured distance $d$.}
     \label{fig:geometry}
 \end{figure}
@@ -167,8 +163,7 @@ Only \texttt{VALID} measurements are passed to the correction stage.
 % --- FIGURE PLACEHOLDER ---
 \begin{figure}[t]
     \centering
-    % \includegraphics[width=\columnwidth]{figure_path/validation_cases.pdf}
-    \fbox{\parbox[c][1.5in][c]{0.9\columnwidth}{\centering \large Sensor Validation Cases Figure\\ \small (a) Valid Hit (b) Corner Case (c) Blocked Ray)}}
+    \includegraphics[width=\columnwidth]{SensorValidation.png}
     \caption{Illustration of measurement validation logic. (a) A valid measurement where the measured distance matches the prediction. (b) A corner case where the ray's intersection is ambiguous. (c) A blocked ray where an obstacle causes a short reading. These cases are filtered deterministically.}
     \label{fig:validation_cases}
 \end{figure}
@@ -254,8 +249,7 @@ MCL (Light)   & [Fill In] & [Fill In] & [Fill In] & [Fill In] \\ \bottomrule
 % --- FIGURE PLACEHOLDER ---
 \begin{figure}[t]
     \centering
-    % \includegraphics[width=0.9\columnwidth]{figure_path/trajectory.pdf}
-    \fbox{\parbox[c][1.8in][c]{0.8\columnwidth}{\centering \large Trajectory Plot Figure\\ \small (e.g., Ground truth vs. Odometry vs. Our Method)}}
+    \includegraphics[width=0.9\columnwidth]{ComparisonVisualizer.png}
     \caption{Example trajectory plot from a simulated run. The ground truth (ideal path) is compared against raw odometry (drifting) and the output of our proposed algorithm, which remains bounded.}
     \label{fig:trajectory}
 \end{figure}
